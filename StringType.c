@@ -87,6 +87,11 @@ ULONG StringLength(String *str)
   return str ? str->length : 0; 
 }
 
+String *CopyString(String *str)
+{
+  return MakeString(str->_guts); 
+}
+
 BOOL StringHasPrefix(String *str, String *prefix)
 {
   ULONG i;
@@ -238,8 +243,12 @@ VOID StringPadLeadingChar(String *str, ULONG count, char chr)
 
   newLength = str->length + count;
   new_guts = (char *)AllocMem(newLength + 1, MEMF_PUBLIC|MEMF_CLEAR);
-  CopyMem(str->_guts, new_guts + count, str->length);
-  FreeMem(str->_guts, str->length + 1);
+
+  if (str->length > 0)
+  {
+    CopyMem(str->_guts, new_guts + count, str->length);
+    FreeMem(str->_guts, str->length + 1);
+  }
   str->_guts = new_guts;
   str->length = newLength;
 

@@ -2,30 +2,150 @@
 #include <stdio.h>
 #include "StringType.h"
 
-void test_StringPadLeading()
+void runTests(void (*test)(UBYTE stage, BOOL *done))
 {
-  String *str;
+  UBYTE stage; 
+  BOOL done = NO;
 
-  printf("test_StringPadLeading\n");
-
-  str = MakeString("foo");
-  StringPadLeading(str, 3);
-  printf("`%s`\n", CString(str));
-
-  FreeString(str);
+  for (stage = 0; !done; stage++)
+    test(stage, &done);
 }
 
-void test_StringPadLeadingChar()
+void printTestResult(char *testName, UBYTE stage, char *msg)
 {
-  String *str;
+  printf("%s [%d]: ", testName, stage);
 
-  printf("test_StringPadLeadingChar\n");
+  if (msg)
+    printf("FAILED - %s\n", msg);
+  else
+    printf("PASSED\n");
+}
 
-  str = MakeString("foo");
-  StringPadLeadingChar(str, 3, 'a');
-  printf("`%s`\n", CString(str));
+void expectStringIsNil(char *testName, UBYTE stage, String *result)
+{
+  char *msg = nil;
 
-  FreeString(str);
+  if (result)
+    msg = "expected result to be nil";
+
+  printTestResult(testName, stage, msg);
+
+  if (msg && result)
+    printf("    result: `%s`\n", CString(result));
+}
+
+void expectStringsAreEqual(char *testName, UBYTE stage, String *str, String *result, String *expected)
+{
+  char *msg = nil;
+
+  if (!StringsAreEqual(result, expected))
+    msg = "expected strings to be equal";
+
+  printTestResult(testName, stage, msg);
+
+  if (msg)
+  {
+    if (str)
+      printf("    test string: `%s`\n", CString(str));
+    if (result)
+      printf("    result: `%s`\n", CString(result));
+    if (expected)
+      printf("    expected: `%s`\n", CString(expected));
+  }
+}
+
+void test_StringPadLeading(UBYTE stage, BOOL *done)
+{
+  String *str = nil,
+         *result = nil,
+         *expected = nil;
+
+  char *testName = "StringPadLeading";
+
+  *done = stage >= 2;
+
+  switch (stage)
+  {
+    case 0:
+      StringPadLeading(result, 3);
+
+      expectStringIsNil(testName, stage, result);
+      break;
+
+    case 1:
+      str = MakeString("");
+      result = CopyString(str);
+      expected = MakeString("   ");
+
+      StringPadLeading(result, 3);
+
+      expectStringsAreEqual(testName, stage, str, result, expected);
+      break;
+
+    case 2:
+      str = MakeString("foo");
+      result = CopyString(str);
+      expected = MakeString("   foo");
+
+      StringPadLeading(result, 3);
+
+      expectStringsAreEqual(testName, stage, str, result, expected);
+      break;
+  }
+
+  if (str)
+    FreeString(str);
+  if (result)
+    FreeString(result);
+  if (expected)
+    FreeString(expected);
+}
+
+void test_StringPadLeadingChar(UBYTE stage, BOOL *done)
+{
+  String *str = nil,
+         *result = nil,
+         *expected = nil;
+
+  char *testName = "StringPadLeadingChar";
+
+  *done = stage >= 2;
+
+  switch (stage)
+  {
+    case 0:
+      StringPadLeadingChar(result, 3, 'a');
+
+      expectStringIsNil(testName, stage, result);
+      break;
+
+    case 1:
+      str = MakeString("");
+      result = CopyString(str);
+      expected = MakeString("aaa");
+
+      StringPadLeadingChar(result, 3, 'a');
+
+      expectStringsAreEqual(testName, stage, str, result, expected);
+      break;
+
+    case 2:
+      str = MakeString("foo");
+      result = CopyString(str);
+      expected = MakeString("aaafoo");
+
+      StringPadLeadingChar(result, 3, 'a');
+
+      expectStringsAreEqual(testName, stage, str, result, expected);
+      break;
+  }
+
+  if (str)
+    FreeString(str);
+  if (result)
+    FreeString(result);
+  if (expected)
+    FreeString(expected);
 }
 
 void test_StringCharAt()
@@ -466,6 +586,7 @@ int main()
 
   FreeString(string);
 
+  /*
   test_StringIsEmpty();
   test_StringIsBlank();
   test_StringHasPrefix();
@@ -479,6 +600,10 @@ int main()
   test_StringCharAt();
   test_StringPadLeadingChar();
   test_StringPadLeading();
+  */
+
+  runTests(test_StringPadLeading);
+  runTests(test_StringPadLeadingChar);
 
   printf("AvailMem: %ld\n", AvailMem(MEMF_PUBLIC));
   printf("test complete\n");

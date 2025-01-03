@@ -44,6 +44,11 @@ ULONG StringLength(String *str);
 
 
 
+/* Returns a copy of a String. */
+String *CopyString(String *str);
+
+
+
 /* Returns YES if a String starts with the specified String, else NO. */
 BOOL StringHasPrefix(String *str, String *prefix);
 
