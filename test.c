@@ -3,21 +3,6 @@
 #include "StringType.h"
 #include "testFunctions.h"
 
-void test_StringAppend()
-{
-  String *foo, *bar;
-
-  printf("test_StringAppend\n");
-
-  foo = MakeString("foo");
-  bar = MakeString("bar");
-  StringAppend(foo, bar);
-  printf("`%s`\n", CString(foo));
-
-  FreeString(bar);
-  FreeString(foo);
-}
-
 void test_StringTrim()
 {
   String *str;
@@ -413,6 +398,7 @@ done:
     printf("    PASSED OK\n");
 }
 
+void test_StringAppend(UBYTE stage, BOOL *done);
 void test_StringCharAt(UBYTE stage, BOOL *done);
 void test_StringPadLeading(UBYTE stage, BOOL *done);
 void test_StringPadLeadingChar(UBYTE stage, BOOL *done);
@@ -444,6 +430,7 @@ int main()
   test_StringPadLeading();
   */
 
+  runTests(test_StringAppend);
   runTests(test_StringCharAt);
   runTests(test_StringPadLeading);
   runTests(test_StringPadLeadingChar);
