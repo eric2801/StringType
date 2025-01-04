@@ -2,25 +2,6 @@
 #include <stdio.h>
 #include "StringType.h"
 #include "testFunctions.h"
-#include "tests/test_StringPadLeading.h"
-#include "tests/test_StringPadLeadingChar.h"
-
-void test_StringCharAt()
-{
-  String *str;
-  char c;
-
-  printf("test_StringCharAt\n");
-
-  str = MakeString("foo");
-  c = StringCharAt(str, 0);
-  c = StringCharAt(str, 1);
-  c = StringCharAt(str, 2);
-
-  c = StringCharAt(str, 3);
-
-  FreeString(str);
-}
 
 void test_StringAppend()
 {
@@ -432,6 +413,10 @@ done:
     printf("    PASSED OK\n");
 }
 
+void test_StringCharAt(UBYTE stage, BOOL *done);
+void test_StringPadLeading(UBYTE stage, BOOL *done);
+void test_StringPadLeadingChar(UBYTE stage, BOOL *done);
+
 int main()
 {
   String *string;
@@ -459,6 +444,7 @@ int main()
   test_StringPadLeading();
   */
 
+  runTests(test_StringCharAt);
   runTests(test_StringPadLeading);
   runTests(test_StringPadLeadingChar);
 

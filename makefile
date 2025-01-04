@@ -1,10 +1,19 @@
 StringType.o: StringType.c StringType.h custom_defs.h
 
+test_StringCharAt.o: tests/test_StringCharAt.c
 test_StringPadLeading.o: tests/test_StringPadLeading.c
 test_StringPadLeadingChar.o: tests/test_StringPadLeadingChar.c
 
-test: StringType.o testFunctions.o tests/test_StringPadLeading.o tests/test_StringPadLeadingChar.o test.o
-  ln StringType.o testFunctions.o tests/test_StringPadLeading.o tests/test_StringPadLeadingChar.o test.o -o test -lc
+test: StringType.o testFunctions.o \
+      tests/test_StringCharAt.o \
+      tests/test_StringPadLeading.o \
+      tests/test_StringPadLeadingChar.o \
+      test.o
+  ln StringType.o testFunctions.o \
+      tests/test_StringCharAt.o \
+      tests/test_StringPadLeading.o \
+      tests/test_StringPadLeadingChar.o \
+      test.o -o test -lc
   @echo "your journey towards the dark side is now complete."
   @test
 

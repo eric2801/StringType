@@ -1,8 +1,6 @@
 #include <exec/exec.h>
-#include <stdio.h>
 #include "StringType.h"
 #include "testFunctions.h"
-#include "tests/test_StringPadLeadingChar.h"
 
 void test_StringPadLeadingChar(UBYTE stage, BOOL *done)
 {

@@ -52,3 +52,8 @@ void expectStringsAreEqual(char *testName, UBYTE stage, String *str, String *res
       printf("    expected: `%s`\n", CString(expected));
   }
 }
+
+void expect(BOOL condition, char *testName, UBYTE stage, char *msg)
+{
+  printTestResult(testName, stage, condition ? nil : msg);
+}

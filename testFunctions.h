@@ -10,4 +10,6 @@ void printTestResult(char *testName, UBYTE stage, char *msg);
 void expectStringIsNil(char *testName, UBYTE stage, String *result);
 void expectStringsAreEqual(char *testName, UBYTE stage, String *str, String *result, String *expected);
 
+void expect(BOOL condition, char *testName, UBYTE stage, char *msg);
+
 #endif
