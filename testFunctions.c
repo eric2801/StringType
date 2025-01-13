@@ -1,8 +1,8 @@
-#include <stdio.h>
 #include "testFunctions.h"
+#include "custom_defs.h"
+#include <stdio.h>
 
-void runTests(void (*test)(UBYTE stage, BOOL *done))
-{
+void runTests(void (*test)(UBYTE stage, BOOL *done)) {
   UBYTE stage;
   BOOL done = NO;
 
@@ -10,8 +10,7 @@ void runTests(void (*test)(UBYTE stage, BOOL *done))
     test(stage, &done);
 }
 
-void printTestResult(char *testName, UBYTE stage, char *msg)
-{
+void printTestResult(char *testName, UBYTE stage, char *msg) {
   printf("%s [%d]: ", testName, stage);
 
   if (msg)
@@ -20,8 +19,7 @@ void printTestResult(char *testName, UBYTE stage, char *msg)
     printf("PASSED\n");
 }
 
-void expectStringIsNil(char *testName, UBYTE stage, String *result)
-{
+void expectStringIsNil(char *testName, UBYTE stage, String *result) {
   char *msg = nil;
 
   if (result)
@@ -33,8 +31,8 @@ void expectStringIsNil(char *testName, UBYTE stage, String *result)
     printf("    result: `%s`\n", CString(result));
 }
 
-void expectStringsAreEqual(char *testName, UBYTE stage, String *str, String *result, String *expected)
-{
+void expectStringsAreEqual(char *testName, UBYTE stage, String *str,
+                           String *result, String *expected) {
   char *msg = nil;
 
   if (!StringsAreEqual(result, expected))
@@ -42,8 +40,7 @@ void expectStringsAreEqual(char *testName, UBYTE stage, String *str, String *res
 
   printTestResult(testName, stage, msg);
 
-  if (msg)
-  {
+  if (msg) {
     if (str)
       printf("    test string: `%s`\n", CString(str));
     if (result)
@@ -53,7 +50,6 @@ void expectStringsAreEqual(char *testName, UBYTE stage, String *str, String *res
   }
 }
 
-void expect(BOOL condition, char *testName, UBYTE stage, char *msg)
-{
+void expect(BOOL condition, char *testName, UBYTE stage, char *msg) {
   printTestResult(testName, stage, condition ? nil : msg);
 }

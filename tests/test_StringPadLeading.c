@@ -1,43 +1,40 @@
-#include "testFunctions.h"
 #include "StringType.h"
+#include "custom_defs.h"
+#include "testFunctions.h"
 
-void test_StringPadLeading(UBYTE stage, BOOL *done)
-{
-  String *str = nil,
-         *result = nil,
-         *expected = nil;
+void test_StringPadLeading(UBYTE stage, BOOL *done) {
+  String *str = nil, *result = nil, *expected = nil;
 
   char *testName = "StringPadLeading";
 
   *done = stage >= 2;
 
-  switch (stage)
-  {
-    case 0:
-      StringPadLeading(result, 3);
+  switch (stage) {
+  case 0:
+    StringPadLeading(result, 3);
 
-      expectStringIsNil(testName, stage, result);
-      break;
+    expectStringIsNil(testName, stage, result);
+    break;
 
-    case 1:
-      str = MakeString("");
-      result = CopyString(str);
-      expected = MakeString("   ");
+  case 1:
+    str = MakeString("");
+    result = CopyString(str);
+    expected = MakeString("   ");
 
-      StringPadLeading(result, 3);
+    StringPadLeading(result, 3);
 
-      expectStringsAreEqual(testName, stage, str, result, expected);
-      break;
+    expectStringsAreEqual(testName, stage, str, result, expected);
+    break;
 
-    case 2:
-      str = MakeString("foo");
-      result = CopyString(str);
-      expected = MakeString("   foo");
+  case 2:
+    str = MakeString("foo");
+    result = CopyString(str);
+    expected = MakeString("   foo");
 
-      StringPadLeading(result, 3);
+    StringPadLeading(result, 3);
 
-      expectStringsAreEqual(testName, stage, str, result, expected);
-      break;
+    expectStringsAreEqual(testName, stage, str, result, expected);
+    break;
   }
 
   if (str)

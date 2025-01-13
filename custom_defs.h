@@ -1,9 +1,16 @@
-#ifndef _DEFS_H
-#define _DEFS_H
+#ifndef _CUSTOM_DEFS_H
+#define _CUSTOM_DEFS_H
 
-#define nil  0L
+#ifndef nil
+#define nil 0L
+#endif
 
-#define YES  1L
-#define NO   0L
+#ifndef YES
+#define YES 1L
+#endif
+
+#ifndef NO
+#define NO 0L
+#endif
 
 #endif
