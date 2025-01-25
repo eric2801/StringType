@@ -60,4 +60,8 @@ VOID StringPadLeading(String *str, ULONG count);
 /* Pads the String leader with 'n' number of characters. */
 VOID StringPadLeadingChar(String *str, ULONG count, char chr);
 
+VOID StringPadLeadingToLength(String *str, ULONG length);
+
+VOID StringPadLeadingCharToLength(String *str, ULONG length, char chr);
+
 #endif

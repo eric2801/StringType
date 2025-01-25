@@ -4,17 +4,6 @@
 #include <exec/exec.h>
 #include <stdio.h>
 
-void test_StringTrim() {
-  String *str;
-
-  printf("test_StringTrim\n");
-
-  str = MakeString("   foo   ");
-  StringTrim(str);
-  printf("`%s`\n", CString(str));
-  FreeString(str);
-}
-
 void test_StringTrimTrailing() {
   String *str;
 
@@ -374,6 +363,8 @@ void test_StringAppend(UBYTE stage, BOOL *done);
 void test_StringCharAt(UBYTE stage, BOOL *done);
 void test_StringPadLeading(UBYTE stage, BOOL *done);
 void test_StringPadLeadingChar(UBYTE stage, BOOL *done);
+void test_StringPadLeadingToLength(UBYTE stage, BOOL *done);
+void test_StringTrim(UBYTE stage, BOOL *done);
 
 int main() {
   String *string;
@@ -405,9 +396,11 @@ int main() {
   runTests(test_StringCharAt);
   runTests(test_StringPadLeading);
   runTests(test_StringPadLeadingChar);
+  runTests(test_StringPadLeadingToLength);
+  runTests(test_StringTrim);
 
   printf("AvailMem: %ld\n", AvailMem(MEMF_PUBLIC));
-  printf("test complete\n");
+  printf("testing complete\n");
 
   return 0;
 }

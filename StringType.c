@@ -219,7 +219,7 @@ VOID StringPadLeadingChar(String *str, ULONG count, char chr) {
   char *new_guts;
   ULONG newLength, i;
 
-  if (!str)
+  if (!str || count < 1)
     return;
 
   newLength = str->length + count;
@@ -234,4 +234,14 @@ VOID StringPadLeadingChar(String *str, ULONG count, char chr) {
 
   for (i = 0; i < count; i++)
     str->_guts[i] = chr;
+}
+
+VOID StringPadLeadingToLength(String *str, ULONG length) {
+  ULONG count = length - StringLength(str);
+  StringPadLeadingChar(str, count, ' ');
+}
+
+VOID StringPadLeadingCharToLength(String *str, ULONG length, char chr) {
+  ULONG count = length - StringLength(str);
+  StringPadLeadingChar(str, count, chr);
 }
